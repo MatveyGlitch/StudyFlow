@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow — Учебный планировщик</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="js/app.js" defer></script>
+  <script src="js/timer.js" defer></script>
+  <script src="js/accordion.js" defer></script>
+  <script src="js/validation.js" defer></script>
+  <script src="js/todo.js" defer></script>
+  <script src="js/progress.js" defer></script>
+  <script src="js/font-size.js" defer></script>
+  <script src="js/hover.js" defer></script>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- Боковая панель -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">S</div>
+      <div>
+        <h2>StudyFlow</h2>
+        <p>Твой учебный помощник</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="nav-caption">РАБОЧЕЕ ПРОСТРАНСТВО</span>
+
+      <a href="#dashboard" class="nav-link active">
+        <span>📊</span> Обзор
+      </a>
+      <a href="#analytics" class="nav-link">
+        <span>📈</span> Прогресс
+      </a>
+      <a href="#tasks" class="nav-link">
+        <span>✅</span> Мои задачи
+      </a>
+      <a href="#materials" class="nav-link">
+        <span>📚</span> Материалы
+      </a>
+      <a href="#notes" class="nav-link">
+        <span>📝</span> Заметки
+      </a>
+
+
+      <span class="nav-caption">ДОПОЛНИТЕЛЬНО</span>
+
+      <a href="#subjects" class="nav-link">
+        <span>🎓</span> Предметы
+      </a>
+      <a href="#profile" class="nav-link">
+        <span>⚙️</span> Профиль
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p>Учись. Планируй. Достигай.</p>
+      <small>StudyFlow © 2026</small>
+    </div>
+  </aside>
+
+  <!-- Основная область -->
+  <div class="workspace">
+
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">ЛИЧНОЕ ПРОСТРАНСТВО</span>
+        <h1>Панель управления</h1>
+        <p>Управляй временем и следи за своими успехами</p>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="date-badge" id="current-date"></span>
+        <a href="#tasks" class="button button-primary">
+          + Добавить задачу
+        </a>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <!-- Главная панель -->
+      <section id="dashboard">
+
+        <div class="quote-banner">
+          <span>✦</span>
+          <p>Большие достижения начинаются с маленьких шагов.</p>
+        </div>
+
+        <!-- Статистика -->
+        <div class="stats-grid">
+
+          <div class="stat-card stat-purple">
+            <span class="stat-icon">📋</span>
+            <strong id="stat-total">0</strong>
+            <span>Всего задач</span>
+          </div>
+
+          <div class="stat-card stat-pink">
+            <span class="stat-icon">✓</span>
+            <strong id="stat-completed">0</strong>
+            <span>Выполнено</span>
+          </div>
+
+          <div class="stat-card stat-blue">
+            <span class="stat-icon">⏱</span>
+            <strong id="stat-focus">0</strong>
+            <span>Минут в фокусе</span>
+          </div>
+
+          <div class="stat-card stat-green">
+            <span class="stat-icon">📈</span>
+            <strong id="stat-percent">0%</strong>
+            <span>Успеваемость</span>
+          </div>
+
+        </div>
+
+        <div class="motivation-banner">
+          <span>🔥</span>
+          <div>
+            <strong>Сохраняй свой темп!</strong>
+            <p>Каждая выполненная задача приближает тебя к цели.</p>
+          </div>
+        </div>
+
+        <!-- Недельный календарь -->
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Недельный календарь</h2>
+              <p>Планируй свою учебную неделю</p>
+            </div>
+            <span class="section-tag">Эта неделя</span>
+          </div>
+
+          <div class="week-grid" id="week-grid"></div>
+        </div>
+
+        <!-- Компонент 3: Таймер -->
+        <div class="panel timer-section" id="timer">
+          <div class="panel-heading">
+            <div>
+              <h2>Таймер концентрации</h2>
+              <p>Сосредоточься на важной задаче</p>
+            </div>
+            <span class="section-tag">Pomodoro</span>
+          </div>
+
+          <div class="timer-panel">
+
+            <div class="timer-settings">
+              <label for="timer-duration">Длительность:</label>
+              <select id="timer-duration">
+                <option value="5">5 минут</option>
+                <option value="15">15 минут</option>
+                <option value="25" selected>25 минут</option>
+                <option value="45">45 минут</option>
+                <option value="60">60 минут</option>
+              </select>
+            </div>
+
+            <span class="timer-label">Время сосредоточиться</span>
+
+            <div class="timer-display" id="timer-display">
+              25:00
+            </div>
+
+            <div class="timer-actions">
+              <button id="timer-start" class="button button-light">
+                ▶ Старт
+              </button>
+              <button id="timer-pause" class="button button-light">
+                ⏸ Пауза
+              </button>
+              <button id="timer-reset" class="button button-light">
+                ↻ Сброс
+              </button>
+            </div>
+
+            <p class="timer-status" id="timer-status">
+              Готов к продуктивной работе?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Компонент 10: To-Do -->
+      <section class="panel page-section" id="tasks">
+        <div class="panel-heading">
+          <div>
+            <h2>Мои задачи</h2>
+            <p>Организуй дела и отмечай выполненные</p>
+          </div>
+          <span class="section-tag">To-Do List</span>
+        </div>
+
+        <form class="todo-form" id="todo-form">
+          <input
+                  type="text"
+                  id="todo-input"
+                  placeholder="Что необходимо сделать?"
+                  maxlength="120"
+                  required
+          >
+          <button type="submit" class="button button-primary">
+            + Добавить
+          </button>
+        </form>
+
+        <div class="todo-summary">
+          <span id="todo-counter">Выполнено 0 из 0</span>
+          <button id="todo-clear" class="text-button">
+            Удалить выполненные
+          </button>
+        </div>
+
+        <ul class="todo-list" id="todo-list"></ul>
+
+        <p class="empty-state" id="todo-empty">
+          Пока задач нет. Добавь свою первую задачу!
+        </p>
+      </section>
+
+      <!-- Компонент 13: Прогресс-бар -->
+      <section class="panel page-section" id="analytics">
+        <div class="panel-heading">
+          <div>
+            <h2>Мой прогресс</h2>
+            <p>Статистика выполнения учебных задач</p>
+          </div>
+          <span class="section-tag">Аналитика</span>
+        </div>
+
+        <div class="progress-info">
+          <span>Выполнено задач</span>
+          <strong id="progress-text">0%</strong>
+        </div>
+
+        <div class="progress-track"
+             id="progress-track"
+             role="progressbar"
+             aria-label="Прогресс выполнения задач"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="0">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <p class="progress-description" id="progress-description">
+          Добавь задачи, чтобы начать отслеживать прогресс.
+        </p>
+      </section>
+
+      <!-- Компонент 5: Аккордеон -->
+      <section class="panel page-section" id="materials">
+        <div class="panel-heading">
+          <div>
+            <h2>Учебные материалы</h2>
+            <p>Основные технологии веб-разработки</p>
+          </div>
+          <span class="section-tag">Аккордеон</span>
+        </div>
+
+        <div class="accordion">
+
+          <div class="accordion-item">
+            <button class="accordion-trigger"
+                    aria-expanded="false">
+              <span>🌐 HTML — структура страницы</span>
+              <span class="accordion-arrow">⌄</span>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>
+                HTML — язык гипертекстовой разметки,
+                который определяет структуру и содержание
+                веб-страницы с помощью элементов и тегов.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger"
+                    aria-expanded="false">
+              <span>🎨 CSS — оформление интерфейса</span>
+              <span class="accordion-arrow">⌄</span>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>
+                CSS отвечает за внешний вид элементов:
+                цвета, шрифты, размеры, расположение,
+                адаптивность и анимации.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger"
+                    aria-expanded="false">
+              <span>⚡ JavaScript — интерактивность</span>
+              <span class="accordion-arrow">⌄</span>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>
+                JavaScript позволяет обрабатывать события,
+                изменять содержимое страницы, проверять
+                формы и создавать интерактивные компоненты.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger"
+                    aria-expanded="false">
+              <span>💾 LocalStorage — хранение данных</span>
+              <span class="accordion-arrow">⌄</span>
+            </button>
+            <div class="accordion-panel" hidden>
+              <p>
+                LocalStorage позволяет сохранять данные
+                в браузере между посещениями страницы.
+                Например, список учебных задач.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Компонент 18: Изменение шрифта -->
+      <section class="panel page-section" id="notes">
+        <div class="panel-heading">
+          <div>
+            <h2>Заметки и чтение</h2>
+            <p>Настрой удобный размер текста</p>
+          </div>
+          <span class="section-tag">Доступность</span>
+        </div>
+
+        <div class="font-controls">
+          <span>Размер текста:</span>
+          <button id="font-decrease" class="button button-secondary">
+            A−
+          </button>
+          <button id="font-increase" class="button button-secondary">
+            A+
+          </button>
+          <button id="font-reset" class="button button-secondary">
+            Сброс
+          </button>
+          <span id="font-value">16 px</span>
+        </div>
+
+        <article class="reading-card" id="reading-text">
+          <h3>Как учиться эффективно?</h3>
+          <p>
+            Эффективное обучение начинается с планирования.
+            Разделяй большие задачи на небольшие этапы,
+            выделяй время для сосредоточенной работы
+            и обязательно делай перерывы.
+          </p>
+          <p>
+            Регулярное повторение материала помогает
+            закреплять знания, а отслеживание прогресса
+            позволяет видеть результаты своих усилий.
+          </p>
+        </article>
+      </section>
+
+      <!-- Компонент 20: Анимация -->
+      <section class="panel page-section" id="subjects">
+        <div class="panel-heading">
+          <div>
+            <h2>Мои предметы</h2>
+            <p>Наведи курсор на карточку предмета</p>
+          </div>
+          <span class="section-tag">Анимация</span>
+        </div>
+
+        <div class="subjects-grid">
+
+          <div class="subject-card subject-html" tabindex="0">
+            <span class="subject-icon">🌐</span>
+            <h3>HTML</h3>
+            <p>Структура веб-страниц</p>
+            <span class="subject-hint">Наведи курсор</span>
+          </div>
+
+          <div class="subject-card subject-css" tabindex="0">
+            <span class="subject-icon">🎨</span>
+            <h3>CSS</h3>
+            <p>Стилизация и дизайн</p>
+            <span class="subject-hint">Наведи курсор</span>
+          </div>
+
+          <div class="subject-card subject-js" tabindex="0">
+            <span class="subject-icon">⚡</span>
+            <h3>JavaScript</h3>
+            <p>Логика и компоненты</p>
+            <span class="subject-hint">Наведи курсор</span>
+          </div>
+
+        </div>
+
+        <p class="hover-message" id="hover-message"
+           aria-live="polite">
+          Выбери интересующий предмет.
+        </p>
+      </section>
+
+      <!-- Компонент 9: Форма валидации -->
+      <section class="panel page-section" id="profile">
+        <div class="panel-heading">
+          <div>
+            <h2>Мой профиль</h2>
+            <p>Редактирование личных данных</p>
+          </div>
+          <span class="section-tag">Валидация</span>
+        </div>
+
+        <form id="validation-form" novalidate>
+
+          <div class="form-field">
+            <label for="username">Имя пользователя</label>
+            <input type="text" id="username"
+                   placeholder="Введите имя">
+            <span class="field-error" id="name-error"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Электронная почта</label>
+            <input type="email" id="email"
+                   placeholder="example@mail.com">
+            <span class="field-error" id="email-error"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="password">Пароль</label>
+            <input type="password" id="password"
+                   placeholder="Минимум 8 символов">
+            <span class="field-error" id="password-error"></span>
+          </div>
+
+          <button type="submit" class="button button-primary">
+            Сохранить изменения
+          </button>
+
+          <p class="form-message" id="form-message"
+             aria-live="polite"></p>
+        </form>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <span>StudyFlow — Учись эффективнее</span>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

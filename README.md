@@ -100,7 +100,7 @@ lab5-js-components/
 
 **Планируемая ссылка при названии репозитория `lab5-js-components`:**
 
-[Открыть StudyFlow](https://matveyglitch.github.io/lab5-js-components/)
+[Открыть StudyFlow](https://matveyglitch.github.io/StudyFlow/)
 
 ---
 

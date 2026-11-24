@@ -98,8 +98,6 @@ lab5-js-components/
 
 Сайт публикуется через **Git и GitHub Pages**. После загрузки файлов в репозиторий на GitHub необходимо включить GitHub Pages в **Settings → Pages**, выбрав ветку `main` и папку `/ (root)`.
 
-**Планируемая ссылка при названии репозитория `lab5-js-components`:**
-
 [Открыть StudyFlow](https://matveyglitch.github.io/StudyFlow/)
 
 ---

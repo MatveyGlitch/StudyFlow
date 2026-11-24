@@ -96,7 +96,7 @@ lab5-js-components/
 
 ## 🌐 Онлайн-версия
 
-Сайт публикуется через **Git и GitHub Pages**. После загрузки файлов в репозиторий на GitHub необходимо включить GitHub Pages в **Settings → Pages**, выбрав ветку `main` и папку `/ (root)`.
+Сайт опубликован с помощью GitHub Pages и доступен по ссылке:
 
 [Открыть StudyFlow](https://matveyglitch.github.io/StudyFlow/)
 
